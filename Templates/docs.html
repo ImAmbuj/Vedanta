@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Gallery - Vedanta {% endblock %}
+{% block CSS  %} <link rel="stylesheet" href="{% static 'CSS/gallery.css' %}">{% endblock %}
+{% block body %}
+  
+                   <!--content here -->
+
+    <div class="photos-container">
+        <h1>Study Materials</h1>
+        
+        <div class="photo-gallery">
+
+            {% for d in documents %}
+           
+            <div class="pic">
+                <a href="{{d.file.url}}"><img src="{% static 'img/pdf.jpg'%}" ></a>
+                <p>{{d.caption}}</p>
+            </div>
+
+            {% endfor %}
+        </div>    
+        <div class="page-btn">
+           {% if documents.has_previous %}
+           <a href="?page={{documents.previous_page_number}}"><span>&#8592</span></a>
+           {%endif%}
+           {% for num in documents.paginator.page_range %}
+           {% if documents.number == num %}
+            <span style="background: gray; color:white;">{{num}}</span>
+           
+           {% elif num > documents.number|add:'-2' and num < documents.number|add:'2' %}
+           
+           <a href="?page={{num}}"><span>{{num}}</span></a>
+           {%endif%}
+           {% endfor %}
+           {% if documents.has_next %}
+           <a href="?page={{documents.next_page_number}}"><span>&#8594</span></a>
+           {%endif%}
+    
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block js %}
+     <!--Javascript for video player-->
+     <script>
+       var videoPlayer = document.getElementById("vid-play");  
+       var myVideo = document.getElementById("my-vid");  
+       var featVideo = document.getElementById("feature-vid");  
+        
+       function stopVid(){
+           videoPlayer.style.display = "none";
+           featVideo.style.display = "block";
+       }
+       function playVid(file){
+              myVideo.src= file;
+              videoPlayer.style.display= "block";
+              featVideo.style.display = "none";
+       }
+
+     </script>
+{% endblock %}

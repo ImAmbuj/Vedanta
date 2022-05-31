@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+.photos-container{
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.photos-container h1{
+    font-weight: normal;
+    font-size: 35px;
+    position: relative;
+    margin: 30px 0;
+}
+h1::before{
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background-color: crimson;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: animate 4s linear infinite;
+}
+@keyframes animate{
+    0%{
+        width: 100px;
+    }
+    50%{
+        width: 200px;
+    }
+    100%{
+        width: 100px;
+    }
+}
+.photo-gallery{
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    
+}
+.pic{
+    margin-bottom: 40px;
+    position: relative;
+    height: 230px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px lightgray;
+    cursor: pointer;
+    transition: .5s;
+}
+.pic img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: .5s;
+    object-fit: contain;
+}
+.pic p{
+    margin: 10px 0 10px 0;
+    text-decoration: none;
+    color: #555;
+}
+.page-btn{
+    margin: 0 auto 40px;
+}
+.page-btn span{
+    display: inline-block;
+    border: 1px solid gray;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.page-btn span:hover{
+    background: gray;
+    color: white;
+}
+
+
+
+
+@media only screen and (max-width:800px){
+    .photo-gallery{
+        width: 90%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 30px;
+        
+    }
+    .page-btn span{
+        display: inline-block;
+        border: 1px solid gray;
+        margin-left: 10px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        cursor: pointer;
+    }
+}
+ 

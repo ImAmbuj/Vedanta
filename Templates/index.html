@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Vedanta - ChemistryPoint {% endblock %}
+{% block CSS  %} 
+
+{% endblock %}
+{% block body %}
+  
+
+    <div class="header">        
+        <div class="container">    
+            <div class="row">
+                <div class="col-2">
+                  <h1>Learn Chemistry From<br> The Best Now!</h1>
+                  <p>Are you finding Chemistry tough to learn? Don't worry.
+                      We're here for you, Learn from R.B. sir to learn Chemistry as easy as posssible in hindi.</p>
+                      {% if user.is_authenticated %}
+                      <a href="/Videos" class="btn">Explore Now &#8594;</a>
+                      {% else %}
+                      <a href="/Accounts" class="btn">Explore Now &#8594;</a>
+                      {% endif %}
+                </div>
+                <div class="col-2">
+                    <img src="{% static 'img/back.png' %}">
+                </div>
+            </div>
+        </div>  
+    </div>
+  
+
+<!------------ Featured Images -------------->
+
+<div class="small-container">
+    <h2 class="title">Featured Images</h2>
+    <div class="row">
+     <!----   <div class="col-4">
+            <a href="{{d.file.url}}"><img src="{% static 'img/rishabh.jpg' %}" ></a>
+            <h4>Our student Rishabh Tripathi ( JEE qualified )</h4>
+        </div>
+        <div class="col-4">
+            <a href="{{d.file.url}}"><img src="{% static 'img/akshay.jpg' %}" ></a>
+            <h4>Our student Akshay Sharma ( NEET qualified )</h4>
+        </div>
+        <div class="col-4">
+            <a href="{{d.file.url}}"><img src="{% static 'img/jyoti.jpg' %}" ></a>
+            <h4>Our student Jyoti Mishra ( NEET qualified )</h4>
+        </div>-->
+        {% for d in images %}
+        <div class="col-4">
+            <a href="{{d.file.url}}"><img src="{{d.file.url}}" ></a>
+            <h4>{{d.caption}}</h4>
+        </div>
+        {% endfor %}
+    </div>
+</div>        
+{% endblock %}    
+

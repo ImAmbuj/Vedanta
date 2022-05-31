@@ -1,0 +1,1 @@
+web: gunicorn Vedanta.wsgi --log-file -

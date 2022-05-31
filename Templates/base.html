@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'CSS/home.css'%}">
+    {% block CSS %}{% endblock %}
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/"><img src="{% static 'img/logo2.jpg'%}" width="100px" height="40px"></a>
+                </div>
+                <nav>
+                   <ul id="MenuItems">
+                       <li><a href="/">Home</a></li>
+                       <li><a href="/Videos">Videos</a></li>
+                       <li><a href="/Gallery">Gallery</a></li>
+                       <li><a href="/Contact">Contact</a></li>
+                       <li><a href="/Docs">Docs</a></li>
+                       
+                       {% if user.is_authenticated %} 
+                       <li><a href="/Logout"> <i class="fa fa-sign-out"></i></a></li>
+                       <li><div class="noti-icon" onclick="toggleNotify()"> 
+                           <i class="fa fa-bell-o"></i>
+                        </div></li>
+                       
+                       {% else %}
+                       <li><a href="/Accounts"> <i class="fa fa-user-circle-o"></i></a></li>
+                       {% endif %}
+                   </ul>    
+                </nav>
+                 <!-- notifications-->
+                
+                
+                 <div class="notification-box" id="box">
+                    <h2>Notifications <span> {{count}} </span></h2>
+                    
+                    {% for d in notifications %}
+
+                    <div class="notify-item">
+                        <i class="fa fa-hand-o-right" style="color: white;"></i>
+                        <!--<img src="{% static 'img/arrow.png'%}">-->
+                        <div class="text" style="margin-left: 5px;">
+                            <p>{{d.notification}}</p>
+                        </div>
+                    </div>  
+
+                    {% endfor %}
+                 </div>
+               
+                <img src="{% static 'img/menu.png'%}" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>  
+    </div>    
+
+    {% block body %}
+
+    {% endblock %}
+    
+
+    
+       <!-- Footer -->
+    <footer> 
+       <div class="footer-content">
+         <h3>Vedanta Chemistry</h3>
+         <p>Follow Vedanta Chemistry on our Social media handles to stay connected.</p>
+         <ul class="socials">
+             <li><a href=""><img src="{% static 'img/Facebook.png'%}" width="20px" height="20px"></a></li>
+             <li><a href=""><img src="{% static 'img/Youtube.png'%}" width="20px" height="20px"></a></li>
+             <li><a href=""><img src="{% static 'img/Instagram.png'%}" width="20px" height="20px"></a></li>
+             <li><a href=""><img src="{% static 'img/Twitter.png'%}" width="20px" height="20px"></a></li>
+         </ul>    
+       </div>
+       <div class="footer-bottom">
+           <p>copyright &copy; vedantaChemistry. designed by <span>Ambuj</span></p>
+       </div>
+    </footer>
+
+
+     <!--Javascript for toggle menu-->
+     <script>
+         var MenuItems = document.getElementById("MenuItems");
+         var box = document.getElementById('box');
+         var down = false;
+         MenuItems.style.maxHeight = "0px";
+         function menutoggle(){
+             if( MenuItems.style.maxHeight == "0px")
+             {
+                MenuItems.style.maxHeight = "250px";
+             }
+             else
+             {
+                MenuItems.style.maxHeight = "0px";
+                box.style.height = '0px';
+                box.style.opacity = 0;
+                down = false;
+             }
+         }
+     </script>
+     <script src="{% static 'js/notify.js' %}"></script>
+
+     {% block js %} {%endblock%}
+</body>
+</html>

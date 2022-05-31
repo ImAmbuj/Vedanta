@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Vedanta - ChemistryPoint {% endblock %}
+{% block CSS  %} <link rel="stylesheet" href="{% static 'CSS/videos.css' %}">{% endblock %}
+{% block body %}
+  
+    <div class="small-container">     
+        <div class="vid-row">
+            <div class="vid-col">
+
+                <div class="video-player" id="vid-play">
+                    <video width="100%" controls autoplay id="my-vid" controlsList="nodownload">
+                        <source src="{% static 'img/1.mp4' %}">
+                    </video>
+                    <img src="{% static 'img/close-button.png' %}" class="close-btn" onclick="stopVid()">
+                </div>
+
+                <div class="feature-img" id="feature-vid">
+                    <img src="{% static 'img/rb.jpg' %}" width="100%">
+                    <img src="{% static 'img/play.png' %}" class="play-btn" onclick="playVid()">
+                </div>
+ <!----               <h3 id="main-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum ex vel optio asperiores impedit debitis hic eius dolorem</h3>-->
+            </div>
+
+            <div class="vid-col">
+
+                {% for v in vids %} 
+                <div class="small-thumb-row" >
+                    <div class="small-thumb">
+                        <img src="{{v.thumbnail.url}}">
+                        <img src="{% static 'img/play.png' %}" class="play-btn" onclick="playVid('{{ v.video.url }}')">
+                    </div>
+                    <p>{{v.title}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>   
+
+
+        <div class="page-btn">
+            {% if vids.has_previous %}
+           <a href="?page={{vids.previous_page_number}}"><span>&#8592</span></a>
+           {%endif%}
+           {% for num in vids.paginator.page_range %}
+           {% if vids.number == num %}
+            <span style="background: gray; color:white;">{{num}}</span>
+           
+           {% elif num > vids.number|add:'-2' and num < vids.number|add:'2' %}
+           
+           <a href="?page={{num}}"><span>{{num}}</span></a>
+           {%endif%}
+           {% endfor %}
+           {% if vids.has_next %}
+           <a href="?page={{vids.next_page_number}}"><span>&#8594</span></a>
+           {%endif%}
+    
+        </div>
+        
+    </div>
+{% endblock %}
+         
+     <!--Javascript Videos-->
+     
+     {% block js %}     
+     <script>
+
+     // Video Player
+       var videoPlayer = document.getElementById("vid-play");  
+       var myVideo = document.getElementById("my-vid");  
+       var featVideo = document.getElementById("feature-vid");  
+        
+       function stopVid(){
+           videoPlayer.style.display = "none";
+           featVideo.style.display = "block";
+           myVideo.pause();
+       }
+       function playVid(file){
+              myVideo.src= file;
+              videoPlayer.style.display= "block";
+              featVideo.style.display = "none";
+              myVideo.play();
+       }
+
+     // active effect  
+       var elements = document.getElementsByClassName("small-thumb-row");
+       for(var i = 0; i < elements.length ; i++)
+       {
+           elements[i].onclick = function(){
+               var el = elements[0];
+               while(el){
+                   if(el.tagName=== "DIV"){
+                       el.classList.remove("active-row");
+                   }
+                   el = el.nextSibling;
+               }
+               this.classList.add("active-row");
+           }; 
+       }
+     </script>
+{%  endblock  %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Vedanta - ChemistryPoint {% endblock %}
+{% block CSS  %} <link rel="stylesheet" href="{% static 'CSS/account.css' %}">{% endblock %}
+{% block body %}
+  
+    <!------------ Accounts Page  -------------->
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{% static 'img/back.png' %}" width="100%">
+                </div>
+                <div class="col-2">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="register()">Register</span>
+                            <hr id="Indi">
+                        </div>
+                        <form action="" method="POST" id="LoginForm">
+                            {% csrf_token %}
+                            <input type="text" name="username" placeholder="Username">
+                            <input type="password" name="password" placeholder="Password">
+                            <button type="submit" value="login" name="login" class="btn">Login</button>
+                            <a href="">Forgot Password</a>
+                        </form>
+
+                        <form action="" method="POST" id="RegForm">
+                            {% csrf_token %}
+                            <input type="text" name="username" placeholder="Username">
+                            <input type="email" name="email"  placeholder="E-mail">
+                            <input type="tel" name="number" placeholder="Contact Number">
+                            <input type="password" name="password" placeholder="Password">
+                            <div class="checkBox">
+                                <label> 11th : </label>
+                                <input type="radio" class="radio" name="standard" value="11th">
+                            
+                                <label> 12th : </label>
+                                <input type="radio" class="radio" name="standard" value="12th">
+                            </div>
+                            <button type="submit" value="register" name="register" class="btn">Register</button>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="popup center active">
+        {% for msg in messages %}
+        {% if msg.tags %}
+        <div class="icon">
+          <i class="fa fa-flash" style="color: hsl(120, 88%, 58%);"></i>
+        </div>
+        <div class="popup-title">
+            {{msg.tags}}
+        </div>
+        {%endif%}
+        
+        <div class="description">
+           {{msg}}
+        </div>
+        {% endfor %}
+        <div class="dismiss-btn">
+            <button id="dismiss-popup-btn">
+                Dismiss
+            </button>
+        </div>
+    </div>
+    {%endif%}
+{% endblock %}
+      
+     {% block js %}
+     <!---Javascript for forn-->
+       
+     <script src="{% static 'js/account.js'%}"></script>
+     {% endblock %}
